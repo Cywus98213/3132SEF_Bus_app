@@ -44,7 +44,7 @@ const RouteDetails = () => {
     <>
       <View className="flex-1 flex-col">
         <Image source={images.bg} className="absolute w-full z-0" />
-        <DetailsTopBar orig={orig} dest={dest} />
+        <DetailsTopBar orig={orig} dest={dest} route={route} bound={bound}/>
         {detailsLoading ? (
           <ActivityIndicator
             size="large"
@@ -57,7 +57,7 @@ const RouteDetails = () => {
           </View>
         ) : (
           <>
-            <MapView style={styles.map} provider={PROVIDER_GOOGLE} />
+            <MapView style={styles.map} provider={PROVIDER_GOOGLE}/>
             <FlatList
               data={details}
               contentContainerStyle={{ paddingBottom: 70 }}

@@ -26,17 +26,17 @@ const RouteCard = ({ orig, dest, route, bound, service_type }: RouteProps) => {
 
   return (
     <TouchableOpacity
-      className="flex-row items-center rounded-md p-3 px-5 mb-3 border-[0.25px]"
+      className="flex-row items-center rounded-md p-3 px-5 mb-3 border"
       onPress={() => handleOnPress(route, bound, service_type, dest, orig)}
     >
       <Text style={styles.Route} className="text-highlight">
         {route}
       </Text>
       <View style={styles.subContainer}>
-        <Text style={styles.Dest} ellipsizeMode="tail" numberOfLines={1}>
-          <Text className="font-bold text-base">To:</Text> {dest}
+        <Text style={styles.Dest} ellipsizeMode="tail" numberOfLines={1} className="font-extrabold">
+          <Text className="text-base font-normal">To:</Text> {dest}
         </Text>
-        <Text style={styles.orig} ellipsizeMode="tail" numberOfLines={1}>
+        <Text style={styles.orig} ellipsizeMode="tail" numberOfLines={1} className="font-medium">
           From: {orig}
         </Text>
       </View>

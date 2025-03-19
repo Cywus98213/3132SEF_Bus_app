@@ -1,5 +1,5 @@
 import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import useFetch from "@/services/useFetch";
 import { fetchStopDetail } from "@/services/api";
 
@@ -9,6 +9,7 @@ interface StopListProps {
 }
 
 const ListCard = ({ stop_id, stop_idx }: StopListProps) => {
+  const [focused, setFocused] = useState(false);
   const {
     data: stopData,
     loading: stopIsLoading,
@@ -43,13 +44,22 @@ const ListCard = ({ stop_id, stop_idx }: StopListProps) => {
     );
   }
 
+  const handleOnPress = (focused: boolean) => {
+    setFocused(!focused);
+  }
+
+
   return (
-    <TouchableOpacity className="flex-row px-5 py-4 gap-5">
-      <View>
-        <Text>{stop_idx}.</Text>
+    <TouchableOpacity className="flex-row px-8 py-4 gap-5 border-b items-center" onPress={() => handleOnPress(focused)}>
+      <View className="">
+        <Text>☉</Text>
       </View>
-      <View>
-        <Text>{stopData.name_en}</Text>
+      <View className="">
+        <Text className="text-2xl">{stop_idx}.</Text>
+      </View>
+      <View className="">
+        <Text className="font-bold" numberOfLines={1} ellipsizeMode="tail" >{stopData.name_en}</Text>
+        <Text className="text-base">Fee: $3.5</Text>
       </View>
     </TouchableOpacity>
   );
