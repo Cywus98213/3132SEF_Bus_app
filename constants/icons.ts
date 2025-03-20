@@ -5,6 +5,8 @@ import save from "@/assets/icons/save.png";
 import search_hollow from '@/assets/icons/search_hollow.png'
 import leftArrow from '@/assets/icons/leftArrow.png'
 import rightArrow from '@/assets/icons/rightArrow.png'
+import Setting from '@/assets/icons/Setting.png'
+import downArrow from '@/assets/icons/downArrow.png'
 
 export const icons = {
   home,
@@ -13,5 +15,7 @@ export const icons = {
   save,
   search_hollow,
   leftArrow,
-  rightArrow
+  rightArrow,
+  Setting,
+  downArrow
 };

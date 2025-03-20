@@ -36,17 +36,17 @@ const _Layout = () => {
         tabBarHideOnKeyboard: true,
         tabBarShowLabel: false,
         tabBarItemStyle: {
-            width:'100%',
-            height: '100%',
+          width: "100%",
+          height: "100%",
         },
-        tabBarStyle:{
-            backgroundColor: '#f8f9fe',
-            position:'absolute',
-            overflow: 'hidden',
-            borderTopLeftRadius: 20,
-            borderTopRightRadius: 20,
-            height: 60,
-        }
+        tabBarStyle: {
+          backgroundColor: "#f8f9fe",
+          position: "absolute",
+          overflow: "hidden",
+          borderTopLeftRadius: 20,
+          borderTopRightRadius: 20,
+          height: 60,
+        },
       }}
     >
       <Tabs.Screen
@@ -60,22 +60,22 @@ const _Layout = () => {
         }}
       />
       <Tabs.Screen
-        name="search"
-        options={{
-          title: "Search",
-          headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            <TabIcon icon={icons.search} focused={focused} title="Search" />
-          ),
-        }}
-      />
-      <Tabs.Screen
         name="saved"
         options={{
           title: "Saved",
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <TabIcon icon={icons.save} focused={focused} title="Saved" />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="setting"
+        options={{
+          title: "setting",
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <TabIcon icon={icons.Setting} focused={focused} title="Setting" />
           ),
         }}
       />

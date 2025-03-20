@@ -6,6 +6,7 @@ import useFetch from "@/services/useFetch";
 import { fetchRoutes } from "@/services/api";
 import RouteCard from "@/components/RouteCard";
 import { useState } from "react";
+import Loading from "@/components/Loading";
 
 export default function Index() {
   const [searchRoute, setSearchRoute] = useState("");
@@ -25,11 +26,7 @@ export default function Index() {
       <Image source={images.bg} className="absolute w-full z-0" />
       <View className="flex-1 px-5">
         {routesLoading ? (
-          <ActivityIndicator
-            size="large"
-            color="#000000"
-            className="mt-10 self-center"
-          />
+          <Loading />
         ) : routesError ? (
           <View className="flex-1 items-center justify-center">
             <Text className="font-bold">Error : {routesError?.message}</Text>
@@ -42,6 +39,7 @@ export default function Index() {
               onChangeText={setSearchRoute}
               placeHolderText="Search"
             />
+
             <>
               <Text className="text-2xl text-font_primary font-bold mt-5 mb-3">
                 Routes:

@@ -72,3 +72,34 @@ export const fetchStopDetail = async (stop_id: string) => {
     throw err;
   }
 };
+
+export const fetchStopETA = async (
+  stop_id: string,
+  route: string,
+  service_type: string
+) => {
+  try {
+    const endpoint =
+      KMB_CONFIG.BASE_URL +
+      `/v1/transport/kmb/eta/${stop_id}/${route}/${service_type}`;
+
+    // console.log(endpoint)
+
+
+    const response = await fetch(endpoint, {
+      method: "GET",
+      headers: KMB_CONFIG.headers,
+    });
+    if (!response.ok) {
+      throw new Error(
+        "Failed to fetch routes stop detail: " + response.statusText
+      );
+    }
+    const data = response.json();
+
+    return data;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
