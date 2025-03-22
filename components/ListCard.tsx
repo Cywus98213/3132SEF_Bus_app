@@ -7,6 +7,7 @@ import Loading from "./Loading";
 import CustomModal from "./Modal";
 import { icons } from "@/constants/icons";
 import useStore from "@/services/store";
+import { t } from "i18next";
 
 interface StopListProps {
   stop_id: string;
@@ -137,7 +138,7 @@ const ListCard = ({
             </Text>
           </View>
 
-          <Text className="text-base">Fee: $3.5</Text>
+          <Text className="text-base">{t("fee")}: $3.5</Text>
           <View
             className={classNames("", {
               "display-block": focused,
@@ -153,7 +154,7 @@ const ListCard = ({
                 >
                   {getMinutesUntilETA(item.eta)}
                 </Text>
-                <Text className="text-xs">mins(s)</Text>
+                <Text className="text-xs">{t("mins")}(s)</Text>
                 <Text className="text-md">{item[`rmk_${lang}`]}</Text>
               </View>
             ))}
@@ -163,7 +164,7 @@ const ListCard = ({
           <Text className="text-highlight font-extrabold text-2xl">
             {getMinutesUntilETA(filterETAData[0].eta)}
           </Text>
-          <Text className="uppercase text-sm text-center">mins</Text>
+          <Text className="uppercase text-sm text-center">{t("mins")}</Text>
         </View>
       </TouchableOpacity>
       <CustomModal

@@ -10,6 +10,9 @@ import Loading from "@/components/Loading";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "expo-router";
 import useStore from "@/services/store";
+import { I18nextProvider } from 'react-i18next';
+import i18n from '@/locales/language'; // Adjust the path as needed
+import { t } from "i18next";
 
 export default function Index() {
   const [searchRoute, setSearchRoute] = useState("");
@@ -41,47 +44,49 @@ export default function Index() {
   );
 
   return (
-    <View className="flex-1 bg-primary">
-      <Image source={images.bg} className="absolute w-full z-0" />
-      <View className="flex-1 px-5">
-        {routesLoading ? (
-          <Loading />
-        ) : routesError ? (
-          <View className="flex-1 items-center justify-center">
-            <Text className="font-bold">Error : {routesError?.message}</Text>
-          </View>
-        ) : (
-          <View className="flex-1 mt-5 mx-5">
-            <GreetingBar />
-            <SearchBar
-              value={searchRoute}
-              onChangeText={setSearchRoute}
-              placeHolderText="Search"
-            />
-
-            <>
-              <Text className="text-2xl text-font_primary font-bold mt-5 mb-3">
-                Routes:
-              </Text>
-              <FlatList
-                data={searchRoute ? filteredRoutes : routes}
-                contentContainerStyle={{ paddingBottom: 70 }}
-                keyExtractor={(item, index) => index.toString()}
-                showsVerticalScrollIndicator={false}
-                renderItem={({ item }) => (
-                  <RouteCard
-                    orig={item[`orig_${lang}`]}
-                    dest={item[`dest_${lang}`]}
-                    route={item.route}
-                    bound={item.bound}
-                    service_type={item.service_type}
-                  />
-                )}
+    <I18nextProvider i18n={i18n}>
+      <View className="flex-1 bg-primary">
+        <Image source={images.bg} className="absolute w-full z-0" />
+        <View className="flex-1 px-5">
+          {routesLoading ? (
+            <Loading />
+          ) : routesError ? (
+            <View className="flex-1 items-center justify-center">
+              <Text className="font-bold">Error : {routesError?.message}</Text>
+            </View>
+          ) : (
+            <View className="flex-1 mt-5 mx-5">
+              <GreetingBar />
+              <SearchBar
+                value={searchRoute}
+                onChangeText={setSearchRoute}
+                placeHolderText="search"
               />
-            </>
-          </View>
-        )}
+
+              <>
+                <Text className="text-2xl text-font_primary font-bold mt-5 mb-3">
+                  {t("routes")}:
+                </Text>
+                <FlatList
+                  data={searchRoute ? filteredRoutes : routes}
+                  contentContainerStyle={{ paddingBottom: 70 }}
+                  keyExtractor={(item, index) => index.toString()}
+                  showsVerticalScrollIndicator={false}
+                  renderItem={({ item }) => (
+                    <RouteCard
+                      orig={item[`orig_${lang}`]}
+                      dest={item[`dest_${lang}`]}
+                      route={item.route}
+                      bound={item.bound}
+                      service_type={item.service_type}
+                    />
+                  )}
+                />
+              </>
+            </View>
+          )}
+        </View>
       </View>
-    </View>
+    </I18nextProvider>
   );
 }

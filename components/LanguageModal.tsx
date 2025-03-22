@@ -4,6 +4,7 @@ import ModalBtn from "./ModalBtn";
 import ModalCloseBtn from "./ModalCloseBtn";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import useStore from "@/services/store";
+import { setLocale } from "@/locales/language";
 
 interface LangModalProps {
   visible: boolean;
@@ -12,6 +13,12 @@ interface LangModalProps {
 
 const LanguageModal = ({ visible, onClose }: LangModalProps) => {
   const { lang, setLang } = useStore();
+
+  const changeLanguage = (lang: string) => {
+    setLocale(lang);
+    setLang(lang);
+    onClose();
+  };
 
   return (
     <Modal
@@ -25,13 +32,16 @@ const LanguageModal = ({ visible, onClose }: LangModalProps) => {
         className="flex-1 justify-center items-center "
       >
         <View className="flex-col w-4/5 gap-5 rounded-md p-5 items-center bg-primary">
-          <ModalBtn onPress={() => setLang("en")} text={"English"} />
+          <ModalBtn onPress={() => changeLanguage("en")} text={"english"} />
           <ModalBtn
-            onPress={() => setLang("tc")}
-            text={"Traditional Chinese "}
+            onPress={() => changeLanguage("tc")}
+            text={"traditionalChinese"}
           />
-          <ModalBtn onPress={() => setLang("sc")} text={"Simplified Chinese"} />
-          <ModalCloseBtn text="Close" onClose={onClose} />
+          <ModalBtn
+            onPress={() => changeLanguage("sc")}
+            text={"simplifiedChinese"}
+          />
+          <ModalCloseBtn text="close" onClose={onClose} />
         </View>
       </View>
     </Modal>

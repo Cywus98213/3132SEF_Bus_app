@@ -1,20 +1,20 @@
-import {StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 const GreetingBar = () => {
+  const { t } = useTranslation();
+
   return (
-    <View className='flex-col py-5'>
-      <Text className='text-primary'>Hello, guest!</Text>
-      <Text className='font-semibold text-primary' style={styles.B_font}>Where are you going?</Text>
+    <View className="flex-col py-5 gap-3">
+      <Text className="text-primary">{t('hello')}</Text>
+      <Text className="font-semibold text-primary text-3xl">
+        {t('whereAreYouGoing')}
+      </Text>
     </View>
-  )
-}
+  );
+};
 
-export default GreetingBar
+export default GreetingBar;
 
-const styles = StyleSheet.create({
-    B_font: {
-        fontSize: 25,
-    }
-
-})
+const styles = StyleSheet.create({});

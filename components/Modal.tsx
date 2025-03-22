@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import ModalBtn from "./ModalBtn";
 import ModalCloseBtn from "./ModalCloseBtn";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { t } from "i18next";
 
 interface ModalProps {
   visible: boolean;
@@ -91,12 +92,11 @@ const CustomModal: React.FC<ModalProps> = ({
         className="flex-1 justify-center items-center "
       >
         <View className="flex-col w-4/5 gap-5 rounded-md p-5 items-center bg-primary">
-          <Text>Current selected ID: {stop_id}</Text>
           <ModalBtn
             onPress={() => toggleFavorite(stop_id, route, bound)}
-            text={isFavorite ? "Remove from Favourite" : "Add to Favourite"}
+            text={isFavorite ? t("removeFromFavourite") : t("addToFavourite")}
           />
-          <ModalCloseBtn text="Close" onClose={onClose} />
+          <ModalCloseBtn text="close" onClose={onClose} />
         </View>
       </View>
     </Modal>

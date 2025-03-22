@@ -1,9 +1,8 @@
 import { StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
-import TabsTopBar from "@/components/TabsTopBar";
-import CustomModal from "@/components/Modal";
 import LanguageModal from "@/components/LanguageModal";
 import SettingBtn from "@/components/SettingBtn";
+import SettingTopBar from "@/components/SettingTopBar";
 
 const Setting = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -14,9 +13,9 @@ const Setting = () => {
 
   return (
     <>
-      <TabsTopBar title="Setting" haveTopRightIcon={false} onPress={() => {}}/>
+      <SettingTopBar />
       <View className="flex-1 flex-col">
-        <SettingBtn text="Language" onPress={toggleModal} />
+        <SettingBtn onPress={toggleModal} />
       </View>
       <LanguageModal onClose={toggleModal} visible={modalVisible} />
     </>

@@ -1,6 +1,5 @@
 import { FlatList, Image, StyleSheet, Text, View } from "react-native";
 import MapView, { Marker, Polyline, PROVIDER_GOOGLE } from "react-native-maps";
-import MapViewDirections from "react-native-maps-directions";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "expo-router/build/hooks";
 import useFetch from "@/services/useFetch";

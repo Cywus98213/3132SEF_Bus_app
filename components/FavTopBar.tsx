@@ -2,13 +2,12 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { icons } from "@/constants/icons";
 import { router } from "expo-router";
+import { t } from "i18next";
 
-interface TabsTopBarProps {
-  title: string;
-  haveTopRightIcon: Boolean;
+interface FavTopBarProps {
   onPress: () => void;
 }
-const TabsTopBar: React.FC<TabsTopBarProps> = ({ title, haveTopRightIcon, onPress }) => {
+const FavTopBar: React.FC<FavTopBarProps> = ({ onPress }) => {
   return (
     <View className="h-20 flex-row items-center justify-between px-5 gap-5 bg-highlight">
       <TouchableOpacity onPress={() => router.back()} className="flex-none">
@@ -20,20 +19,18 @@ const TabsTopBar: React.FC<TabsTopBarProps> = ({ title, haveTopRightIcon, onPres
           numberOfLines={1}
           ellipsizeMode="tail"
         >
-          {title}
+            {t("favourite")}
+
+
         </Text>
       </View>
-      {haveTopRightIcon ? (
-        <TouchableOpacity onPress={onPress} className="flex-none">
-          <Image source={icons.edit} className="size-8" />
-        </TouchableOpacity>
-      ) : (
-        <></>
-      )}
+      <TouchableOpacity onPress={onPress} className="flex-none">
+        <Image source={icons.edit} className="size-8" />
+      </TouchableOpacity>
     </View>
   );
 };
 
-export default TabsTopBar;
+export default FavTopBar;
 
 const styles = StyleSheet.create({});

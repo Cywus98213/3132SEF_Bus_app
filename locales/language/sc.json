@@ -1,0 +1,21 @@
+{
+  "favourite": "最爱",
+  "settings": "设置",
+  "language": "语言",
+  "hello": "你好，客人！",
+  "whereAreYouGoing": "你要去哪里？",
+  "routes": "路线",
+  "fee": "费用",
+  "mins": "分钟",
+  "search": "搜索",
+  "home": "首页",
+  "saved": "已保存",
+  "traditionalChinese": "繁体中文",
+  "english": "英语",
+  "simplifiedChinese": "简体中文",
+  "close": "关闭",
+  "noFavoritesFound": "未找到收藏夹。",
+  "to": "往",
+  "addToFavourite": "添加到最爱",
+  "removeFromFavourite": "从最爱中移除"
+}
