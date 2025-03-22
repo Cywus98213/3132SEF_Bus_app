@@ -1,15 +1,19 @@
-import { ActivityIndicator, FlatList, Image, Text, View } from "react-native";
+import { FlatList, Image, Text, View } from "react-native";
 import GreetingBar from "@/components/GreetingBar";
 import SearchBar from "@/components/SearchBar";
 import { images } from "@/constants/images";
 import useFetch from "@/services/useFetch";
 import { fetchRoutes } from "@/services/api";
 import RouteCard from "@/components/RouteCard";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Loading from "@/components/Loading";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFocusEffect } from "expo-router";
+import useStore from "@/services/store";
 
 export default function Index() {
   const [searchRoute, setSearchRoute] = useState("");
+  const { lang, setLang } = useStore();
   const {
     data: routes,
     loading: routesLoading,
@@ -19,6 +23,21 @@ export default function Index() {
   const filteredRoutes = routes?.filter(
     (item: { route: { toString: () => string } }) =>
       item.route.toString().toLowerCase().includes(searchRoute.toLowerCase())
+  );
+
+  const favouritesListInit = async () => {
+    try {
+      const fav = await AsyncStorage.getItem("favorites");
+      fav ? fav : AsyncStorage.setItem("favourites", JSON.stringify([]));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      favouritesListInit();
+    }, [])
   );
 
   return (
@@ -51,8 +70,8 @@ export default function Index() {
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item }) => (
                   <RouteCard
-                    orig={item.orig_en}
-                    dest={item.dest_en}
+                    orig={item[`orig_${lang}`]}
+                    dest={item[`dest_${lang}`]}
                     route={item.route}
                     bound={item.bound}
                     service_type={item.service_type}

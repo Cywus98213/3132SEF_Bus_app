@@ -1,11 +1,4 @@
-import {
-  Button,
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import useFetch from "@/services/useFetch";
 import { fetchStopDetail, fetchStopETA } from "@/services/api";
@@ -13,6 +6,7 @@ import classNames from "classnames";
 import Loading from "./Loading";
 import CustomModal from "./Modal";
 import { icons } from "@/constants/icons";
+import useStore from "@/services/store";
 
 interface StopListProps {
   stop_id: string;
@@ -36,6 +30,7 @@ const ListCard = ({
   const [focused, setFocused] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
+  const { lang, setLang } = useStore();
   const {
     data: stopData,
     loading: stopIsLoading,
@@ -64,10 +59,6 @@ const ListCard = ({
     setFocused(!focused);
     getTheLocation(lat, long);
   };
-
-  if (isLoading) {
-    return <Loading />;
-  }
 
   const toggleModal = () => {
     setModalVisible(!modalVisible);
@@ -98,6 +89,9 @@ const ListCard = ({
     return minutesUntilETA < 0 ? 0 : minutesUntilETA; // Return 0 if the ETA is in the past
   }
 
+  if (isLoading) {
+    return <Loading />;
+  }
   if (stopError || stopETAError) {
     return (
       <View className="flex-1 items-center justify-center">
@@ -127,8 +121,11 @@ const ListCard = ({
         )}
         onPress={() => handleOnPress(lat, long)}
       >
-        <TouchableOpacity onPress={toggleModal} className="absolute top-0 right-0">
-          <Image source={icons.downArrow} tintColor="#2940b1"/>
+        <TouchableOpacity
+          onPress={toggleModal}
+          className="absolute top-0 right-0"
+        >
+          <Image source={icons.downArrow} tintColor="#2940b1" />
         </TouchableOpacity>
 
         <View className="mr-auto h-10 w-8"></View>
@@ -136,7 +133,7 @@ const ListCard = ({
           <View className="flex-row">
             <Text className="text-sm mr-2">{stop_idx}.</Text>
             <Text className="font-bold" numberOfLines={1} ellipsizeMode="tail">
-              {stopData.name_en}
+              {stopData[`name_${lang}`]}
             </Text>
           </View>
 
@@ -157,7 +154,7 @@ const ListCard = ({
                   {getMinutesUntilETA(item.eta)}
                 </Text>
                 <Text className="text-xs">mins(s)</Text>
-                <Text className="text-md">{item.rmk_en}</Text>
+                <Text className="text-md">{item[`rmk_${lang}`]}</Text>
               </View>
             ))}
           </View>
@@ -169,7 +166,14 @@ const ListCard = ({
           <Text className="uppercase text-sm text-center">mins</Text>
         </View>
       </TouchableOpacity>
-      <CustomModal visible={modalVisible} onClose={toggleModal} />
+      <CustomModal
+        visible={modalVisible}
+        onClose={toggleModal}
+        stop_id={stop_id}
+        bound={bound}
+        route={route}
+        service_type={service_type}
+      />
     </>
   );
 };

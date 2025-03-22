@@ -23,9 +23,9 @@ const RouteDetails = () => {
     longitudeDelta: ZoomRatio,
   });
   const boundConvert = (bound: string | null) => {
-    if (bound === "O") {
+    if (bound === "O" || bound === "outbound") {
       return "outbound";
-    } else if (bound === "I") {
+    } else if (bound === "I" || bound === "inbound") {
       return "inbound";
     }
   };

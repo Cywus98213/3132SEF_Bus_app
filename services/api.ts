@@ -46,7 +46,7 @@ export const fetchRoutesStop = async (
 
     return data;
   } catch (err) {
-    console.log(err);
+    console.log("Failed to fetch",err);
     throw err;
   }
 };
@@ -84,7 +84,6 @@ export const fetchStopETA = async (
       `/v1/transport/kmb/eta/${stop_id}/${route}/${service_type}`;
 
     // console.log(endpoint)
-
 
     const response = await fetch(endpoint, {
       method: "GET",

@@ -12,7 +12,8 @@ module.exports = {
           highlight: '#2940b1', //selected blue
           not_highlight: '#808080',
           font_primary:'#1F2024',
-          font_secondary: '#FFFFFF'
+          font_secondary: '#FFFFFF',
+          danger: 'DE3241'
         }
 
     },
