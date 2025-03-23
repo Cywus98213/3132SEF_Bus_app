@@ -10,12 +10,9 @@ The 3132SEF Bus App is a React Native application designed to provide users with
 - **Expo**: For development and building the app.
 - **TypeScript**: For type safety and better development experience.
 - **react-native-maps**: For displaying maps and markers.
-- **react-native-dotenv**: For managing environment variables.
-- **Axios**: For making HTTP requests.
 - **Google Maps API**: For map functionalities.
 
 ## Features
-
 - **Map Integration**: Display bus routes and stops on a Google Map.
 - **Real-time Updates**: Fetch and display real-time data for bus routes and stops.
 - **Search Functionality**: Search for specific bus routes and stops.
