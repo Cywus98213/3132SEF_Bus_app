@@ -53,9 +53,10 @@ const FavCard = ({
     if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}([+-]\d{2}:\d{2})?$/.test(eta)) {
       throw new Error("Invalid ETA format");
     }
-    
+
     const etaDate = new Date(eta);
     const currentDate = new Date();
+    // @ts-ignore
     const differenceInMilliseconds = etaDate - currentDate;
     const minutesUntilETA = Math.floor(differenceInMilliseconds / (1000 * 60));
 
