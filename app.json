@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "3132SEF_Bus_app",
-    "slug": "3132SEF_Bus_app",
+    "name": "Bushk",
+    "slug": "bushk",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/logo.png",
@@ -15,7 +15,18 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/logo.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "config": {
+        "googleMaps": {
+          "apiKey": "process.env.EXPO_PUBLIC_GOOGLE_APL_KEY"
+        }
+      },
+      "package": "com.cywus98213.bushk",
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "INTERNET"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -36,6 +47,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "665183e9-e2c0-4a8f-abf5-3f6f1caa3440"
+      }
     }
   }
 }

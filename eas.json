@@ -6,12 +6,15 @@
   "build": {
     "development": {
       "developmentClient": true,
+      "environment": "development",
       "distribution": "internal"
     },
     "preview": {
+      "environment": "development",
       "distribution": "internal"
     },
     "production": {
+      "environment": "production",
       "autoIncrement": true
     }
   },
