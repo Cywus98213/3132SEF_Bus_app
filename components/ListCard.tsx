@@ -52,7 +52,7 @@ const ListCard = ({
 
   useEffect(() => {
     if (stopData) {
-      getMarkers(Number(stopData.lat), Number(stopData.long), stopData.name_en);
+      getMarkers(Number(stopData.lat), Number(stopData.long), stopData[`name_${t(lang)}`]);
     }
   }, [stopData]);
 
