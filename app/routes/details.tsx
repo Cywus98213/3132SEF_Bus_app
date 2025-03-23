@@ -95,6 +95,8 @@ const RouteDetails = () => {
               initialRegion={region}
               region={region}
               zoomEnabled
+              showsUserLocation
+              showsMyLocationButton
             >
               {markers.length > 1 && (
                 <Polyline
