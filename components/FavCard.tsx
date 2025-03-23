@@ -146,7 +146,7 @@ const FavCard = ({
             </Text>
           </View>
 
-          <Text className="text-base">{stopData[`name_${lang}`]}</Text>
+          <Text className="text-base" numberOfLines={1} ellipsizeMode="tail">{stopData[`name_${lang}`]}</Text>
         </View>
         <View className="ml-auto justify-center flex-col items-center">
           <Text className="text-highlight font-extrabold text-2xl">
