@@ -1,50 +1,61 @@
-# Welcome to your Expo app 👋
+# 3132SEF Bus App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Overview
 
-## Get started
+The 3132SEF Bus App is a React Native application designed to provide users with detailed information about bus routes, stops, and real-time locations. The app integrates with Google Maps to display routes and markers for bus stops.
 
-1. Install dependencies
+## Tech Stack
 
-   ```bash
-   npm install
-   ```
+- **React Native**: For building the mobile application.
+- **Expo**: For development and building the app.
+- **TypeScript**: For type safety and better development experience.
+- **react-native-maps**: For displaying maps and markers.
+- **react-native-dotenv**: For managing environment variables.
+- **Axios**: For making HTTP requests.
+- **Google Maps API**: For map functionalities.
 
-2. Start the app
+## Features
 
-   ```bash
-    npx expo start
-   ```
+- **Map Integration**: Display bus routes and stops on a Google Map.
+- **Real-time Updates**: Fetch and display real-time data for bus routes and stops.
+- **Search Functionality**: Search for specific bus routes and stops.
+- **Detailed Information**: View detailed information about each bus stop.
+- **Error Handling**: Display error messages when data fetching fails.
 
-In the output, you'll find options to open the app in a
+## Installation
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+1. Clone the repository:
+    ```sh
+    git clone https://github.com/yourusername/3132SEF_Bus_app.git
+    cd 3132SEF_Bus_app
+    ```
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+2. Install dependencies:
+    ```sh
+    npm install
+    ```
 
-## Get a fresh project
+3. Create a `.env` file in the root directory and add your Google Maps API key:
+    ```env
+    GOOGLE_MAPS_API_KEY=your_api_key_here
+    ```
 
-When you're ready, run:
+4. Start the development server:
+    ```sh
+    npm start
+    ```
 
-```bash
-npm run reset-project
-```
+## Usage
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+- Open the app on your device or emulator.
+- Use the search functionality to find specific bus routes and stops.
+- View the map to see the bus routes and stops.
+- Tap on a marker to view detailed information about a bus stop.
 
-## Learn more
+## Contributing
 
-To learn more about developing your project with Expo, look at the following resources:
+Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## License
 
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.

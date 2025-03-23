@@ -1,9 +1,11 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import React, { useCallback, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import TabsTopBar from "@/components/TabsTopBar";
+import TabsTopBar from "@/components/SettingTopBar";
 import { useFocusEffect } from "expo-router";
 import FavCard from "@/components/FavCard";
+import FavTopBar from "@/components/FavTopBar";
+import { t } from "i18next";
 
 const Saved = () => {
   const [favourite, setFavourite] = useState<any[]>([]);
@@ -49,11 +51,7 @@ const Saved = () => {
 
   return (
     <>
-      <TabsTopBar
-        title="Favourites"
-        haveTopRightIcon={true}
-        onPress={toggleIsEdit}
-      />
+      <FavTopBar onPress={toggleIsEdit} />
       <View className="flex-1">
         {favourite.length > 0 ? ( // Check if the 'favourite' array has items
           <FlatList
@@ -75,7 +73,7 @@ const Saved = () => {
           />
         ) : (
           <View className="flex-1 justify-center items-center">
-            <Text className="text-2xl font-bold">No favorites found.</Text>
+            <Text className="text-2xl font-bold">{t("noFavoritesFound")}</Text>
           </View>
         )}
       </View>

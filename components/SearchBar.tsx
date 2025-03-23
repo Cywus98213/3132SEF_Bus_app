@@ -1,6 +1,7 @@
 import { Image, StyleSheet, Text, TextInput, View } from 'react-native'
 import React from 'react'
 import { icons } from '@/constants/icons'
+import { t } from 'i18next';
 
 interface SearchBarProps {
   placeHolderText: string,
@@ -15,7 +16,7 @@ const SearchBar = ({onChangeText,value,placeHolderText}: SearchBarProps) => {
       <Image source={icons.search_hollow} className='size-5' resizeMode='contain' tintColor="#006ffd"/>
       <TextInput 
         onPress={() => {}}
-        placeholder={placeHolderText}
+        placeholder={t(placeHolderText)}
         value={value}
         onChangeText={onChangeText}
         placeholderTextColor="#808080"

@@ -8,6 +8,7 @@ import { router } from "expo-router";
 import useStore from "@/services/store";
 import { icons } from "@/constants/icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { t } from "i18next";
 
 interface FavCardProps {
   stop_id: string;
@@ -151,7 +152,7 @@ const FavCard = ({
         </View>
         <View className="justify-self-start flex-col flex-1 mr-2 gap-2">
           <View className="flex-row gap-2">
-            <Text className="text-sm self-center">To:</Text>
+            <Text className="text-sm self-center">{t("to")}:</Text>
             <Text
               className="font-bold text-lg"
               numberOfLines={1}
@@ -167,7 +168,7 @@ const FavCard = ({
           <Text className="text-highlight font-extrabold text-2xl">
             {getMinutesUntilETA(stopETAData[0].eta)}
           </Text>
-          <Text className="uppercase text-sm text-center">mins</Text>
+          <Text className="uppercase text-sm text-center">{t("mins")}</Text>
         </View>
       </TouchableOpacity>
     </>

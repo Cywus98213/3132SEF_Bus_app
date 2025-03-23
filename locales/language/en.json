@@ -1,0 +1,20 @@
+{
+  "favourite": "Favourite",
+  "settings": "Settings",
+  "language": "Language",
+  "hello": "Hello, guest!",
+  "whereAreYouGoing": "Where are you going?",
+  "routes": "Routes",
+  "fee": "Fee",
+  "mins": "mins",
+  "search": "Search",
+  "home": "Home",
+  "saved": "Saved",
+  "traditionalChinese": "Traditional Chinese",
+  "english": "English",
+  "simplifiedChinese": "Simplified Chinese",
+  "close": "Close",
+  "noFavoritesFound": "No favorites found.",
+  "addToFavourite": "Add to favorite",
+  "removeFromFavourite": "Remove from favorite"
+}

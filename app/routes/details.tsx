@@ -1,5 +1,5 @@
 import { FlatList, Image, StyleSheet, Text, View } from "react-native";
-import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import MapView, { Marker, Polyline, PROVIDER_GOOGLE } from "react-native-maps";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "expo-router/build/hooks";
 import useFetch from "@/services/useFetch";
@@ -11,7 +11,7 @@ import Loading from "@/components/Loading";
 
 const RouteDetails = () => {
   const searchParams = useSearchParams();
-  const ZoomRatio = 0.002;
+  const ZoomRatio = 0.01;
   const [markers, setMarkers] = useState<
     { latitude: number; longitude: number; name: string }[]
   >([]);
@@ -22,6 +22,7 @@ const RouteDetails = () => {
     latitudeDelta: ZoomRatio,
     longitudeDelta: ZoomRatio,
   });
+
   const boundConvert = (bound: string | null) => {
     if (bound === "O" || bound === "outbound") {
       return "outbound";
@@ -94,7 +95,19 @@ const RouteDetails = () => {
               initialRegion={region}
               region={region}
               zoomEnabled
+              showsUserLocation
+              showsMyLocationButton
             >
+              {markers.length > 1 && (
+                <Polyline
+                  coordinates={markers.map((marker) => ({
+                    latitude: marker.latitude,
+                    longitude: marker.longitude,
+                  }))}
+                  strokeWidth={3}
+                  strokeColor="#2940b1"
+                />
+              )}
               {markers.map((item: any, idx) => (
                 <Marker
                   key={idx}
