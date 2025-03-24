@@ -32,14 +32,14 @@ The 3132SEF Bus App is a React Native application designed to provide users with
     npm install
     ```
 
-3. Create a `.env` file in the root directory and add your Google Maps API key:
-    ```env
-    GOOGLE_MAPS_API_KEY=your_api_key_here
-    ```
-
-4. Start the development server:
+3. Start the development server:
     ```sh
     npm start
+    ```
+
+4. Open your android emulator:
+    ```sh
+    › Press a │ open Android
     ```
 
 ## Usage
