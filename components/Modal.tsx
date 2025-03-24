@@ -61,6 +61,7 @@ const CustomModal: React.FC<ModalProps> = ({
         };
         const updatedFav = [...favArr, newFav]; // Add new favorite
         await AsyncStorage.setItem("favorites", JSON.stringify(updatedFav)); // Update AsyncStorage
+        console.log(newFav)
         console.log("Successfully added to favorites", stop_id);
         setIsFavorite(true);
       }

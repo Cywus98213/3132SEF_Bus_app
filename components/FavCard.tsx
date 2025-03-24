@@ -1,10 +1,10 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import classNames from "classnames";
 import useFetch from "@/services/useFetch";
 import { fetchStopDetail, fetchStopETA } from "@/services/api";
 import Loading from "./Loading";
-import { router } from "expo-router";
+import { router, useFocusEffect } from "expo-router";
 import useStore from "@/services/store";
 import { icons } from "@/constants/icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -17,7 +17,7 @@ interface FavCardProps {
   service_type: string;
   bound: string;
   isEdit: boolean;
-  OnDeleteFav: (stop_id: string) => void
+  OnDeleteFav: (stop_id: string) => void;
 }
 
 const FavCard = ({
@@ -27,11 +27,23 @@ const FavCard = ({
   service_type,
   bound,
   isEdit,
-  OnDeleteFav
+  OnDeleteFav,
 }: FavCardProps) => {
-  const [isLoading, setIsLoading] = useState(true);
   const { lang, setLang } = useStore();
 
+  const {
+    data: stopData,
+    loading: stopIsLoading,
+    error: stopError,
+    refetch: refetchStopData,
+  } = useFetch(() => fetchStopDetail(stop_id), false);
+
+  const {
+    data: stopETAData,
+    loading: stopETAIsLoading,
+    error: stopETAError,
+    refetch: refetchStopETAData,
+  } = useFetch(() => fetchStopETA(stop_id, route, service_type), false);
 
   function getMinutesUntilETA(eta: string) {
     if (eta == null) {
@@ -42,43 +54,26 @@ const FavCard = ({
       throw new Error("Invalid ETA format");
     }
 
-    // Create a new Date object using the provided ETA string
     const etaDate = new Date(eta);
-
-    // Get the current date and time
     const currentDate = new Date();
-
-    // Calculate the difference in milliseconds
-    //@ts-ignore
+    // @ts-ignore
     const differenceInMilliseconds = etaDate - currentDate;
-
-    // Convert milliseconds to minutes
     const minutesUntilETA = Math.floor(differenceInMilliseconds / (1000 * 60));
 
-    return minutesUntilETA < 0 ? 0 : minutesUntilETA; // Return 0 if the ETA is in the past
+    return minutesUntilETA < 0 ? 0 : minutesUntilETA;
   }
 
-  const {
-    data: stopData,
-    loading: stopIsLoading,
-    error: stopError,
-  } = useFetch(() => fetchStopDetail(stop_id));
+  useFocusEffect(
+    useCallback(() => {
+      refetchStopData();
+      refetchStopETAData();
+    }, [])
+  );
 
-  const {
-    data: stopETAData,
-    loading: stopETAIsLoading,
-    error: stopETAError,
-  } = useFetch(() => fetchStopETA(stop_id, route, service_type));
-
-  useEffect(() => {
-    if (!stopIsLoading && !stopETAIsLoading) {
-      setIsLoading(false);
-    }
-  }, [stopIsLoading, stopETAIsLoading]);
-
-  if (isLoading) {
+  if (stopIsLoading || stopETAIsLoading) {
     return <Loading />;
   }
+
   if (stopError || stopETAError) {
     return (
       <View className="flex-1 items-center justify-center">
@@ -92,20 +87,6 @@ const FavCard = ({
   if (!stopData || !stopETAData) {
     return <Loading />;
   }
-
-  const deleteFavorite = async (stop_id: string) => {
-    let fav = await AsyncStorage.getItem("favorites");
-    const favArr = fav ? JSON.parse(fav) : []; // Parse or initialize as empty array
-
-    try {
-      const updatedFav = favArr.filter(
-        (item: { stop_id: string }) => item.stop_id !== stop_id
-      ); // Remove the stop_id
-      await AsyncStorage.setItem("favorites", JSON.stringify(updatedFav)); // Update AsyncStorage
-    } catch (err) {
-      console.log("Delete Failed :", err);
-    }
-  };
 
   const handleOnPress = (
     route: string,
@@ -136,7 +117,10 @@ const FavCard = ({
         }
       >
         {isEdit ? (
-          <TouchableOpacity onPress={() => OnDeleteFav(stop_id)} className="mr-2">
+          <TouchableOpacity
+            onPress={() => OnDeleteFav(stop_id)}
+            className="mr-2"
+          >
             <Image
               source={icons.deleteIcon}
               className="size-8"
@@ -162,7 +146,7 @@ const FavCard = ({
             </Text>
           </View>
 
-          <Text className="text-base">{stopData[`name_${lang}`]}</Text>
+          <Text className="text-base" numberOfLines={1} ellipsizeMode="tail">{stopData[`name_${lang}`]}</Text>
         </View>
         <View className="ml-auto justify-center flex-col items-center">
           <Text className="text-highlight font-extrabold text-2xl">

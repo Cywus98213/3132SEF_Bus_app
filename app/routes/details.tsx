@@ -8,10 +8,12 @@ import { images } from "@/constants/images";
 import DetailsTopBar from "@/components/DetailsTopBar";
 import ListCard from "@/components/ListCard";
 import Loading from "@/components/Loading";
+import * as Location from "expo-location";
 
 const RouteDetails = () => {
   const searchParams = useSearchParams();
   const ZoomRatio = 0.01;
+  const [userLocation, setUserLocation] = useState<Location.LocationObject | null>(null);
   const [markers, setMarkers] = useState<
     { latitude: number; longitude: number; name: string }[]
   >([]);
@@ -43,12 +45,14 @@ const RouteDetails = () => {
   } = useFetch(() => fetchRoutesStop(route, bound, service_type));
 
   const getTheLocation = (lat: number, long: number) => {
-    setRegion({
-      latitude: Number(lat),
-      longitude: Number(long),
-      latitudeDelta: ZoomRatio,
-      longitudeDelta: ZoomRatio,
-    });
+    if (lat && long) {
+      setRegion({
+        latitude: Number(lat),
+        longitude: Number(long),
+        latitudeDelta: ZoomRatio,
+        longitudeDelta: ZoomRatio,
+      });
+    }
   };
 
   // Function to collect lat and long into the markers array
@@ -75,6 +79,25 @@ const RouteDetails = () => {
       }
     }
   }, [markers]);
+
+  useEffect(() => {
+    async function getCurrentLocation() {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        console.log("Permission to access location was denied");
+        return;
+      }
+      let location = await Location.getCurrentPositionAsync({});
+      setRegion({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+        latitudeDelta: ZoomRatio,
+        longitudeDelta: ZoomRatio,
+      });
+    }
+
+    getCurrentLocation();
+  }, []);
 
   return (
     <>
@@ -118,6 +141,16 @@ const RouteDetails = () => {
                   title={item.name}
                 ></Marker>
               ))}
+              {userLocation && (
+                <Marker
+                  coordinate={{
+                    latitude: userLocation.coords.latitude,
+                    longitude: userLocation.coords.longitude,
+                  }}
+                  title="Your Location"
+                  pinColor="blue"
+                />
+              )}
             </MapView>
 
             <FlatList

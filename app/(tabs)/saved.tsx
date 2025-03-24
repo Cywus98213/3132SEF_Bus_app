@@ -1,5 +1,5 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import TabsTopBar from "@/components/SettingTopBar";
 import { useFocusEffect } from "expo-router";
@@ -35,17 +35,21 @@ const Saved = () => {
   };
 
   const OnDeleteFav = async (stop_id: string) => {
-    let fav = await AsyncStorage.getItem("favorites");
-    const favArr = fav ? JSON.parse(fav) : []; // Parse or initialize as empty array
-
     try {
-      const updatedFav = favArr.filter(
-        (item: { stop_id: string }) => item.stop_id !== stop_id
-      );
-      await AsyncStorage.setItem("favorites", JSON.stringify(updatedFav)); // Update AsyncStorage
-      loadFavorites();
+      const fav = await AsyncStorage.getItem("favorites");
+      const favArr = fav ? JSON.parse(fav) : []; // Parse or initialize as empty array
+
+      console.log("Selected stop_id:", stop_id);
+      const updatedFav = favArr.filter((item: any) => item.stop_id !== stop_id);
+      console.log("Before", updatedFav);
+
+      // Update AsyncStorage
+      await AsyncStorage.setItem("favorites", JSON.stringify(updatedFav));
+
+      // Reload favorites from AsyncStorage
+      loadFavorites(); // Fetch updated favorites
     } catch (err) {
-      console.log("Delete Failed :", err);
+      console.log("Delete Failed:", err);
     }
   };
 
@@ -57,7 +61,7 @@ const Saved = () => {
           <FlatList
             data={favourite}
             contentContainerStyle={{ paddingBottom: 70 }}
-            keyExtractor={(item, index) => index.toString()}
+            keyExtractor={(item) => item.stop_id}
             showsVerticalScrollIndicator={false}
             renderItem={({ item, index }) => (
               <FavCard
@@ -80,5 +84,7 @@ const Saved = () => {
     </>
   );
 };
+
 export default Saved;
+
 const styles = StyleSheet.create({});
