@@ -121,16 +121,6 @@ const RouteDetails = () => {
               showsUserLocation
               showsMyLocationButton
             >
-              {markers.length > 1 && (
-                <Polyline
-                  coordinates={markers.map((marker) => ({
-                    latitude: marker.latitude,
-                    longitude: marker.longitude,
-                  }))}
-                  strokeWidth={3}
-                  strokeColor="#2940b1"
-                />
-              )}
               {markers.map((item: any, idx) => (
                 <Marker
                   key={idx}
